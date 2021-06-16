@@ -1,0 +1,31 @@
+
+############COMMON CONFIG############
+
+#=====================================
+# GITHUB lqtuan
+#=====================================
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_lqtuan
+
+Host lifetimetech.vn
+  HostName lifetimetech.vn
+  User git
+  IdentityFile ~/.ssh/github_lqtuan
+
+#=====================================
+# GITHUB tuanle
+#=====================================
+Host github.com-tuanle
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_tuanle
+
+#=====================================
+# BITBUCKET
+#=====================================
+Host bitbucket.org
+  HostName bitbucket.org
+  User git
+  IdentityFile ~/.ssh/bitbucket_tuanlq

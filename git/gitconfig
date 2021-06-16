@@ -1,0 +1,116 @@
+[core]
+    editor       = vim
+    filemode     = true
+    excludesfile = ~/.gitignore
+    pager        = less -x4
+
+[user]
+    name  = Tuan Le
+    email = me@tuanlq.com
+
+[color]
+    ui          = true
+    branch      = true
+    diff        = true
+    interactive = true
+    status      = true
+
+[color "branch"]
+    current = red reverse
+    local   = blue
+    remote  = green
+
+[color "diff"]
+    meta  = yellow
+    frag  = magenta
+    old   = red
+    new   = green
+    plain = white
+
+[color "status"]
+    added     = green
+    changed   = red
+    untracked = yellow
+
+[push]
+    default = current
+
+[pull]
+    default = current
+
+[diff]
+    mnemonicprefix = true
+
+[branch]
+    autosetuprebase = always
+
+[rebase]
+    autosquash = true
+
+[apply]
+    whitespace = nowarn
+
+[alias]
+    # BASIC
+    cl = clone
+    st = status -s
+    f = fetch
+
+    # REMOTE
+    r   = remote -v
+    ra  = "!f() { git remote add $1 $2; }; f"
+    rr  = "!f() { git remote rename $1 $2; }; f"
+    ru  = "!f() { git remote set-url $1 $2; }; f"
+    rrm = remote rm
+
+    # BRANCH
+    br = for-each-ref --format='%1B[36m%(objectname:short) %1B[33m[%(committerdate:short)] %1B[31m%(refname:short) %1B[34m[%(authorname)]' --sort=committerdate refs/heads/
+    bra = for-each-ref --format='%1B[36m%(objectname:short) %1B[33m[%(committerdate:short)] %1B[31m%(refname:short) %1B[34m[%(authorname)]' --sort=committerdate
+    brm = branch -m
+    brd = branch -D
+    brdr = push origin --delete
+
+    # CHECKOUT
+    co = checkout
+    cob = checkout -b
+
+    # ADD
+    a  = add
+    aa = add .
+
+    # COMMIT
+    cm = commit
+    cma = commit --amend
+    cmi = "!git commit -am\"[empty] Initial commit\" --allow-empty"
+    cmt = "!git commit -am\"[temp] Temporary commit in $(date +%Y-%m-%d\\ %H:%M)\""
+
+    # PUSH
+    ps = push
+    psf = push -f
+
+    # PULL
+    pl = pull
+    plr = pull --rebase
+
+    # REBASH
+    rb = rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbi = rebase --interactive
+    rbs = rebase --skip
+
+    # SHOW
+    s = show
+    ss = show --stat
+
+    # DIFF
+    df = diff
+
+    # LOG
+    lo = log --pretty=format:"%C(cyan)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short -10
+    #lg = log --pretty=format:"%C(cyan)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --graph --decorate --graph --abbrev-commit -10 --date=short
+    #lg = log --pretty=format:"%C(cyan)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --graph --decorate --graph --abbrev-commit -10 --date=short
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+    # LIST ALIASES
+    al = "!git config -l | grep alias | cut -c 7-"

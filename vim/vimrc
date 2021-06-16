@@ -1,0 +1,181 @@
+"=============================================================
+" Plugin Install (junegunn/vim-plug)
+"=============================================================
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'flazz/vim-colorschemes'         " colorscheme (pool)
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'          " lighten status line (leave vim-airline, powerline)
+Plug 'tpope/vim-surround'             " surroundings, parentheses, brackets, quotes
+Plug 'junegunn/vim-easy-align'        " alignment
+Plug 'Yggdroot/indentLine'            " display vertical indentation
+Plug 'ervandew/supertab'              " use <Tab> for insert completion
+Plug 'Raimondi/delimitMate'           " automatic closing of quotes, brackets, parentheses
+Plug 'ntpeters/vim-better-whitespace' " hightlight and remove trailing whitespace characters
+Plug 'vim-scripts/matchit.zip'        " extended % matching
+Plug 'joonty/vim-phpqa'               " php quality checking tool
+Plug 'easymotion/vim-easymotion'      " jumper
+Plug 'ctrlpvim/ctrlp.vim'             " fuzzy
+
+call plug#end()
+
+"=============================================================
+" Global Settings
+"=============================================================
+
+filetype plugin on
+filetype indent on
+syntax enable
+
+set nocompatible
+set hidden
+set encoding=utf-8
+set ffs=unix,dos,mac
+set autoread
+set backspace=indent,eol,start
+set nopaste
+set number relativenumber
+set ruler
+set cursorline
+set cursorcolumn
+set ignorecase
+set laststatus=2
+set smartcase
+set hlsearch
+set incsearch
+set textwidth=180
+set synmaxcol=240
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+set backupdir=~/.vim/tmp/backup// " backup files
+set directory=~/.vim/tmp/swap// " swap files
+set undodir=~/.vim/tmp/undo// " undo files
+
+"=============================================================
+" Plugin Settings
+"=============================================================
+
+" Colorscheme
+set t_Co=256
+if (has("termguicolors"))
+    set termguicolors
+endif
+silent! let g:gruvbox_italic=1
+silent! let g:gruvbox_bold=1
+silent! set background=light
+silent! colorscheme gruvbox
+
+" Lightline
+set laststatus=2
+let g:lightline = { 'colorscheme': 'gruvbox' }
+
+" EasyMotion
+map f <Plug>(easymotion-s)
+
+" vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" Indent-line
+" let g:indentLine_color_term = 253 " default is 239
+" let g:indentLine_color_gui = '#09AA08'
+" let g:indentLine_char = '│' " default is ¦
+
+" Phpqa
+let g:phpqa_php_cmd              = '/usr/bin/php'
+let g:phpqa_codesniffer_cmd      = '/usr/bin/phpcs' " PHP Code Sniffer binary (default = 'phpcs')
+let g:phpqa_messdetector_autorun = 0                " Don't run messdetector on save (default = 1)
+let g:phpqa_codesniffer_autorun  = 0                " Don't run codesniffer on save (default = 1)
+let g:phpqa_codecoverage_autorun = 1                " Show code coverage on load (default = 0)
+
+" CtrlP
+let g:ctrlp_map = 'tp'
+let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-t>'], 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'] }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = { 'dir':  '\v[\/]\.(git|hg|svn)$', 'file': '\v\.(exe|so|dll)$', 'link': 'some_bad_symbolic_links' }
+
+" vim-better-whitespace
+autocmd BufWritePre * StripWhitespace
+
+"=============================================================
+" Helper functions
+"=============================================================
+
+" Toggle background color between 'light' and 'dark' (default is 'light')
+function ToggleBackgroundColour ()
+    if (&background == 'light')
+        set background=dark
+        echo "background -> dark"
+    else
+        set background=light
+        echo "background -> light"
+    endif
+endfunction
+
+" Restore last opened tab
+let g:reopenbuf = expand('%:p')
+function! ReopenLastTabLeave()
+    let g:lastbuf = expand('%:p')
+    let g:lasttabcount = tabpagenr('$')
+endfunction
+function! ReopenLastTabEnter()
+    if tabpagenr('$') < g:lasttabcount
+        let g:reopenbuf = g:lastbuf
+    endif
+endfunction
+function! ReopenLastTab()
+    tabnew
+    execute 'buffer' . g:reopenbuf
+endfunction
+augroup ReopenLastTab
+    autocmd!
+    autocmd TabLeave * call ReopenLastTabLeave()
+    autocmd TabEnter * call ReopenLastTabEnter()
+augroup END
+
+"=============================================================
+" Mapping Keys
+"=============================================================
+
+" Global
+nnoremap <Space> <Esc>:w<CR>
+nnoremap <Enter> <Esc>:wq<CR>
+set pastetoggle=<F2> " Toggle paste
+nnoremap <F9> :call gruvbox#hls_toggle()<CR>
+nnoremap <F10> :call ToggleBackgroundColour()<CR>
+nnoremap <F11> :source $MYVIMRC<CR>
+nnoremap <F12> :tabedit $MYVIMRC<CR>
+
+" Smart way to move between windows
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-h> <C-W>h
+"map <C-l> <C-W>l
+
+" Moving between tab
+nnoremap th :tabfirst<CR>
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap tl :tablast<CR>
+nnoremap tt :tabedit<Space>
+nnoremap td :tabclose<CR>
+nnoremap t1 1gt
+nnoremap t2 2gt
+nnoremap t3 3gt
+nnoremap t4 4gt
+nnoremap t5 5gt
+nnoremap t6 6gt
+nnoremap t7 7gt
+nnoremap t8 8gt
+nnoremap t9 9gt
+nnoremap <Tab> gt
+" Tab Restore
+nnoremap tr :call ReopenLastTab()<CR>

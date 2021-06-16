@@ -1,0 +1,43 @@
+# MOVING
+alias b='cd ..'
+alias bb='cd ../..'
+alias s="cd -"
+alias h='cd ~'
+alias w='cd /var/www/html'
+alias cf='cd ~/.dotfiles'
+
+# SYSTEM
+alias la='ls -alF'
+alias c="clear"
+alias p="pwd"
+alias d='ncdu'
+alias ?='command -v'
+alias md='mkdir -pv'
+alias f='find . -name'
+alias t='tail -f'
+alias ps="ps auxf"
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
+
+# EDITOR
+# alias v='vim'
+function v() { if [ ! -z "$@" ]; then vim "$@"; else vim $(fzf); fi }
+alias sv='sudo vim'
+alias vl='vim -u "NONE"'
+alias vrc='vim ~/.vimrc'
+
+# BASH
+alias brc='vim ~/.bashrc'
+alias brcs='source ~/.bashrc'
+alias bal='vim ~/.bash_aliases'
+alias ball='alias -p'
+
+# GIT
+alias grc='vim ~/.gitconfig'
+
+# APT
+alias update='sudo apt update'
+alias upgrade='sudo apt upgrade'
+alias search='sudo apt search'
+alias install='sudo apt install'
+alias remove='sudo apt remove --purge'
+alias autoclean='sudo apt autoclean'

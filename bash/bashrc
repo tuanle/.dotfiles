@@ -1,0 +1,41 @@
+# Add helper function
+if [ -f ~/.dotfiles/bash/helper.sh ]; then
+  source ~/.dotfiles/bash/helper.sh
+fi
+
+# Bash aliases
+if [ -f ~/.dotfiles/bash/common_aliases ]; then
+  source ~/.dotfiles/bash/common_aliases
+fi
+
+# Git completion
+if [ -f ~/.dotfiles/git/git-completion.bash ]; then
+    source ~/.dotfiles/git/git-completion.bash
+    __set_git_aliases
+fi
+
+# Bash-git-prompt
+if [ -f ~/.dotfiles/bash-git-prompt/gitprompt.sh ]; then
+    PROMPT_DIRTRIM=2
+    GIT_PROMPT_FETCH_REMOTE_STATUS=0
+    source ~/.dotfiles/bash-git-prompt/prompt-colors.sh
+    GIT_PROMPT_START="${Yellow}\w${ResetColor}"
+    GIT_PROMPT_END="${BoldRed} »»» ${ResetColor}"
+    source ~/.dotfiles/bash-git-prompt/gitprompt.sh
+fi
+
+# Unset helper function
+if [ -f ~/.dotfiles/bash/unset_helper.sh ]; then
+  source ~/.dotfiles/bash/unset_helper.sh
+fi
+
+# Extend PATH
+if [ -d "$HOME/bin" ] ; then
+    PATH="$PATH:$HOME/bin"
+fi
+
+if [ -d "$HOME/.config/composer/vendor/bin" ] ; then
+    PATH="$PATH:$HOME/.config/composer/vendor/bin"
+fi
+
+clear && echo 'WELCOME BACK. BE HAPPY !!!'
