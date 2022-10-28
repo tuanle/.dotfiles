@@ -3,7 +3,7 @@ alias b='cd ..'
 alias bb='cd ../..'
 alias s="cd -"
 alias h='cd ~'
-alias w='cd /var/www/html'
+alias w='cd /var/www/'
 alias cf='cd ~/.dotfiles'
 
 # SYSTEM
