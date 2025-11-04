@@ -38,4 +38,4 @@ if [ -d "$HOME/.config/composer/vendor/bin" ] ; then
     PATH="$PATH:$HOME/.config/composer/vendor/bin"
 fi
 
-clear && echo 'WELCOME BACK. BE HAPPY !!!'
+clear && cd ~ && echo 'WELCOME BACK. BE HAPPY !!!'
